@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7617be10abe661b2c25540bd2d22abfc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_7617be10abe661b2c25540bd2d22abfc" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7617be10abe661b2c25540bd2d22abfc = L.map(
+                "map_7617be10abe661b2c25540bd2d22abfc",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 2,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_9d724b882d5b8444fc35de93c7104f0d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_9d724b882d5b8444fc35de93c7104f0d.addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+            var marker_4db148b7c8957e6ca0bf749ee85c1a5d = L.marker(
+                [10.8896, -74.7808],
+                {}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+        var popup_2d1c05ae7410a48c75523201f4b08692 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ef1a013de435d98134b2f90532a95788 = $(`<div id="html_ef1a013de435d98134b2f90532a95788" style="width: 100.0%; height: 100.0%;">Ernesto Cortissoz International Airport</div>`)[0];
+                popup_2d1c05ae7410a48c75523201f4b08692.setContent(html_ef1a013de435d98134b2f90532a95788);
+            
+        
+
+        marker_4db148b7c8957e6ca0bf749ee85c1a5d.bindPopup(popup_2d1c05ae7410a48c75523201f4b08692)
+        ;
+
+        
+    
+    
+            var poly_line_202c708123c2fe118c69e9f69b1b1c2f = L.polyline(
+                [[10.8896, -74.7808], [10.8896, -74.7808]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+            var marker_e26e9fdc48b4f1e7a64ef3ba1e526446 = L.marker(
+                [25.79319954, -80.29060364],
+                {}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+        var popup_0f3867a35520f98ccf66ee3da63c119e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b062213dcea3aa7a7f48441867788420 = $(`<div id="html_b062213dcea3aa7a7f48441867788420" style="width: 100.0%; height: 100.0%;">Miami International Airport</div>`)[0];
+                popup_0f3867a35520f98ccf66ee3da63c119e.setContent(html_b062213dcea3aa7a7f48441867788420);
+            
+        
+
+        marker_e26e9fdc48b4f1e7a64ef3ba1e526446.bindPopup(popup_0f3867a35520f98ccf66ee3da63c119e)
+        ;
+
+        
+    
+    
+            var poly_line_1ec2c4737ad8898f8bb00be26deb3ec8 = L.polyline(
+                [[10.8896, -74.7808], [25.79319954, -80.29060364]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+            var marker_ff8cad60afa63e3ee0a8ab6e2402173d = L.marker(
+                [33.6367, -84.428101],
+                {}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+        var popup_f32ccbd49c4b2a4f744b3c5ea50a8c29 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_27274d0c70105faeb49a2a32b5e45e13 = $(`<div id="html_27274d0c70105faeb49a2a32b5e45e13" style="width: 100.0%; height: 100.0%;">Hartsfield Jackson Atlanta International Airport</div>`)[0];
+                popup_f32ccbd49c4b2a4f744b3c5ea50a8c29.setContent(html_27274d0c70105faeb49a2a32b5e45e13);
+            
+        
+
+        marker_ff8cad60afa63e3ee0a8ab6e2402173d.bindPopup(popup_f32ccbd49c4b2a4f744b3c5ea50a8c29)
+        ;
+
+        
+    
+    
+            var poly_line_9e62a77eea7d873ee28bf11ca77f16a5 = L.polyline(
+                [[25.79319954, -80.29060364], [33.6367, -84.428101]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+            var marker_32c53e5ce143cbb7efe3ddd8d4886952 = L.marker(
+                [35.76470184, 140.3860016],
+                {}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+    
+        var popup_db6f2375f45006ca6baccda676b05a53 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d687daea1457fdea50c5446e651274a0 = $(`<div id="html_d687daea1457fdea50c5446e651274a0" style="width: 100.0%; height: 100.0%;">Narita International Airport</div>`)[0];
+                popup_db6f2375f45006ca6baccda676b05a53.setContent(html_d687daea1457fdea50c5446e651274a0);
+            
+        
+
+        marker_32c53e5ce143cbb7efe3ddd8d4886952.bindPopup(popup_db6f2375f45006ca6baccda676b05a53)
+        ;
+
+        
+    
+    
+            var poly_line_28893e42539511fdbe39bfacf09776b2 = L.polyline(
+                [[33.6367, -84.428101], [35.76470184, 140.3860016]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_7617be10abe661b2c25540bd2d22abfc);
+        
+</script>
+</html>

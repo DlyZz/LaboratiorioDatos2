@@ -1,4 +1,6 @@
+import folium as fm
 from numpy import infty
+import webbrowser
 from panels import *
 import customtkinter as ctk
 from tkinter import messagebox
@@ -17,6 +19,7 @@ class Menu(ctk.CTkTabview):
     #frames
     InfoFrame(self.tab('Información'),graph, app)
     self.longestPathFrame = LongestPathFrame(self.tab('Caminos Mínimos Más Largos'), graph, app)
+    MinPathFrame(self.tab('Caminos Mínimo'), graph, app) 
 
   
 class InfoFrame(ctk.CTkFrame):
@@ -81,5 +84,69 @@ class LongestPathFrame(ctk.CTkFrame):
       if i>=10:
         break
 
+class MinPathFrame(ctk.CTkFrame):
+  def __init__(self, parent, graph, app):
+    super().__init__(parent, fg_color='transparent')
+    self.pack(expand=True, fill='both')
+
+    def minPathCommand(entry):
+      return lambda: self.minPath(entry, graph)
+  
+    self.infoPanel = None
+    self.panel1 = SimplePanel(self, 'Ingrese el código del aeropuerto de origen: ', None, None)
+    SimplePanel(self, 'Ingrese el código del aeropuerto de destino: ', 'Ver Camino Mínimo', minPathCommand)
+  
+  def generateMap(self, graph, airportCodes, code):
+    airports = graph.data
+    map = fm.Map(location=[20, 0], zoom_start=2)
+    startLocation = None
+    for code in airportCodes:
+      for airport in airports:
+        if airport['Code'] == code:
+          location = [airport['Latitude'], airport['Longitude']]
+          if not startLocation:
+            startLocation = location
+          fm.Marker(location, popup=airport['Name']).add_to(map)
+          actualLocation = location
+          if startLocation and actualLocation:
+            fm.PolyLine([startLocation, actualLocation], color='blue').add_to(map)
+            startLocation = actualLocation
+
+    map.save('map.html')
+    webbrowser.open_new_tab('map.html')
+
+  def minPath(self, entry, graph):
+    codeDestination = entry.get().upper()
+    codeSource = self.panel1.winfo_children()[1].get().upper()
+    if not codeSource or not codeDestination:
+      messagebox.showerror('Error', 'Debe ingresar dos códigos de aeropuertos.')
+      entry.delete(0, 'end')
+      return
+    source = graph.getVertex(codeSource)
+    destination = graph.getVertex(codeDestination)
+    if not source or not destination:
+      messagebox.showerror('Error', 'Uno o ambos aeropuertos no existen en la base de datos.')
+      entry.delete(0, 'end')
+      return
+    if self.infoPanel: self.infoPanel.destroy()
+    self.infoPanel = InfoPanel(self, destination.data['Name'], destination.data['City'], destination.data['Country'], destination.data['Latitude'], destination.data['Longitude']  )
+    minPaths = graph.dijkstra(source)
+    minPaths = {
+      key: minPaths[key]
+      for key in sorted( minPaths, key=lambda x: minPaths[x][0], reverse = True)
+      if not minPaths[key][0] == infty
+    }
+    pathAux = graph.getPath(minPaths, source, destination)
+    print(pathAux)
+    path = pathAux[pathAux.index('(') + 1:pathAux.index(')')].split('->')
+    LongestPathPanel(self,  graph.getPath(minPaths, source, destination), float(path[0]))
+    minPath = graph.getPath(minPaths, source, destination)
+    airportCodes = []
+    if '(' in minPath:
+      minPath = minPath[minPath.index('): ') + 3:]
+      airportCodes = minPath.split(' -> ')
+    self.generateMap(graph, airportCodes, codeSource)
 
   
+
+    

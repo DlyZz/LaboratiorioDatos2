@@ -2,7 +2,7 @@ from pandas import read_csv
 from graph import Graph
 
 
-data = read_csv('data/flights2.csv')
+data = read_csv('data/flights.csv')
 
 #Crea dos listas vacías para almacenar datos de aeropuertos y rutas.
 airports = []
