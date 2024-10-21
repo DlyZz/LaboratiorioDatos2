@@ -12,16 +12,37 @@ class Menu(ctk.CTkTabview):
     self.grid(row=0, column=0, sticky='nsew')
 
     #tabs
-    self.add('Información')
+    self.add('Grafo de Aeropuertos')
+    self.add('Información de un Aeropuerto')
     self.add('Caminos Mínimos Más Largos')
-    self.add('Caminos Mínimo')
+    self.add('Camino Mínimo')
 
     #frames
-    InfoFrame(self.tab('Información'),graph, app)
+    GraphPanel(self.tab('Grafo de Aeropuertos'), graph, app)
+    InfoFrame(self.tab('Información de un Aeropuerto'),graph, app)
     self.longestPathFrame = LongestPathFrame(self.tab('Caminos Mínimos Más Largos'), graph, app)
-    MinPathFrame(self.tab('Caminos Mínimo'), graph, app) 
+    MinPathFrame(self.tab('Camino Mínimo'), graph, app) 
 
   
+class GraphPanel(ctk.CTkFrame):
+  def __init__(self, parent, graph, app):
+      super().__init__(parent, fg_color='transparent')
+      self.pack(expand=True, fill='both')
+
+      
+      self.graphInfo(graph)
+
+  def graphInfo(self, graph):
+
+      # Utilizar el graph guardado en el panel
+      isConnected = graph.isConnected()
+      connectedComponents = graph.connectedComponents()
+      weight = graph.findMinimumSpanningTrees()
+
+      # Crear un nuevo panel o mostrar información
+      GraphInfoPanel(self, isConnected, connectedComponents, weight)
+
+   
 class InfoFrame(ctk.CTkFrame):
   def __init__(self, parent, graph, app):
     super().__init__(parent, fg_color='transparent')
@@ -137,7 +158,6 @@ class MinPathFrame(ctk.CTkFrame):
       if not minPaths[key][0] == infty
     }
     pathAux = graph.getPath(minPaths, source, destination)
-    print(pathAux)
     path = pathAux[pathAux.index('(') + 1:pathAux.index(')')].split('->')
     LongestPathPanel(self,  graph.getPath(minPaths, source, destination), float(path[0]))
     minPath = graph.getPath(minPaths, source, destination)

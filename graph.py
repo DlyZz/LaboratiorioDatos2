@@ -3,6 +3,7 @@ from numpy import infty, zeros
 from math import *
 import graphviz as gv
 from typing import Any
+import heapq
 
 class Graph:
 
@@ -207,3 +208,87 @@ class Graph:
     for edge in self.edges:
       plot.edge( str(edge.vertices[0]), str(edge.vertices[1]), label = str(round(edge.weight,3)) )
     return plot
+  
+  # Determina las componentes conectadas del grafo.
+  def _dfs(self, vertex: Graph.Vertex, visited: set) -> list[Graph.Vertex]:
+      stack = [vertex]  
+      component = []  # Lista para almacenar la componente conectada
+      veticesVisited = 0
+      while stack:
+          v = stack.pop()
+          if v not in visited:
+              visited.add(v)
+              veticesVisited += 1
+              component.append(v)
+              for edge in v.edges:
+                  # Asegúrate de que estás accediendo correctamente al otro vértice
+                  neighbor = edge.vertices[1] if edge.vertices[0] == v else edge.vertices[0]
+                  if neighbor not in visited:
+                      stack.append(neighbor)
+      return component
+
+
+  def connectedComponents(self):
+      components = []  # Lista para almacenar las componentes conexas
+      visited = set()  # Conjunto para marcar los vértices visitados
+      for v in self.vertices:  # Recorre todos los vértices
+          if v not in visited:  # Si el vértice no ha sido visitado
+              component = self._dfs(v, visited)  # Realiza DFS para encontrar la componente
+              print(len(component))
+              if component:  
+                  components.append((component, len(component)))  # Agrega la componente y su tamaño
+      return components  # Devuelve la lista de componentes con sus tamaños
+
+
+  # Determina si el grafo es conexo.
+  def isConnected(self) -> bool:
+      if not self.vertices:  # Cambié _vertices a vertices
+          return False 
+
+      components = self.connectedComponents()  # Obtiene las componentes conexas
+      return len(components) == 1  # Si hay una sola componente, el grafo es conexo
+
+
+     
+  def prim(self, start_vertex):
+        mst_edges = []  # Lista para almacenar las aristas del MST
+        total_weight = 0  # Peso total del MST
+        visited = set()  # Conjunto de vértices visitados
+        min_heap = []  # Cola de prioridad para seleccionar las aristas de menor peso
+
+        visited.add(start_vertex)
+
+        # Añadir todas las aristas del vértice inicial a la cola
+        for edge in start_vertex.edges:
+            heapq.heappush(min_heap, (edge.weight, edge))
+
+        # Mientras haya aristas en la cola y no hemos incluido todos los vértices
+        while min_heap:
+            weight, edge = heapq.heappop(min_heap)
+            v1, v2 = edge.vertices
+
+            # Si v2 no ha sido visitado, lo añadimos al MST
+            if v2 not in visited:
+                visited.add(v2)
+                mst_edges.append(edge)
+                total_weight += weight
+
+                # Añadir las aristas de v2 a la cola
+                for next_edge in v2.edges:
+                    if next_edge.vertices[1] not in visited:  # Asegúrate de no añadir vértices ya visitados
+                        heapq.heappush(min_heap, (next_edge.weight, next_edge))
+
+        return total_weight
+  
+  # Encuentra los árboles de expansión mínima de cada componente conexa
+  def findMinimumSpanningTrees(self):
+        components = self.connectedComponents()  # Obtener las componentes conectadas
+        mst_weights = {}  # Diccionario para almacenar el peso del MST de cada componente
+
+        for component, _ in components:
+            # Tomar el primer vértice de la componente para iniciar Prim
+            start_vertex = component[0]
+            mst_weight = self.prim(start_vertex)
+            mst_weights[tuple(component)] = mst_weight  # Usamos la tupla del componente como clave
+
+        return mst_weights 

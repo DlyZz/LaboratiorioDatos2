@@ -26,8 +26,6 @@ for i, row in data.iterrows():
   route = (source['Code'],destination['Code'])
   if not ( route in routes or route[::-1] in routes ): routes.append(route)
 
-  #Limita la cantidad de registros procesados a 500 para acelerar la ejecución.
-  #if i > 500: break
 
 #Ordena la lista de aeropuertos según el código del aeropuerto.
 airports = sorted(airports, key=lambda x: x['Code'])
@@ -35,9 +33,16 @@ airports = sorted(airports, key=lambda x: x['Code'])
 #Representar el grafo de rutas entre aeropuertos.
 globe = Graph()
 
+numberVertex = 0
+
 #Agrega cada aeropuerto como un vértice al grafo.
 for airport in airports:
   globe.newVertex( airport )
+  numberVertex += 1
+
+print(f"Se han agregado {numberVertex} vértices al grafo.")
+print(f"Se han agregado {len(routes)} aristas al grafo.")
+print(f"Aeropuertos: {len(airports)}")
 
 #Itera sobre las rutas y agrega cada ruta como una arista con su distancia calculada.
 for route in routes:
